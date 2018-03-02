@@ -4,13 +4,14 @@ import caramelo.com.br.notepad.model.Note
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
 
 /**
  * Created by lucascaramelo on 01/03/18.
  */
-class NoteRepository {
+class NoteRepository(retrofit: Retrofit) {
 
-    private val api by lazy { RetrofitProvider.create(NoteApi::class) }
+    private val api by lazy { retrofit.create(NoteApi::class.java) }
 
     fun list(onListNoteSuccess: (List<Note>?) -> Unit,
              onListNoteFail: (Throwable?) -> Unit) {
