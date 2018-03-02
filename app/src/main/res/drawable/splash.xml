@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorPrimaryDark"/>
+    <item>
+        <bitmap android:src="@drawable/ic_notepad"
+            android:gravity="center"/>
+    </item>
+</level-list>
