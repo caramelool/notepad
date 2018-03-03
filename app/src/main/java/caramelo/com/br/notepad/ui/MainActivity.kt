@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Handler().postDelayed({
             startMain()
+            finish()
         }, 2000)
     }
 

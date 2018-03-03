@@ -16,10 +16,31 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <EditText
+                tools:text="Notepad Detail"
+                android:id="@+id/noteTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="Título"/>
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_note_detail" />
+    <EditText
+        android:id="@+id/noteContentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|start"
+        android:inputType="textMultiLine|textCapWords"
+        android:scrollbars="vertical"
+        android:padding="8dp"
+        android:hint="Conteúdo"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:text="conteudo"/>
+
 
 </android.support.design.widget.CoordinatorLayout>
