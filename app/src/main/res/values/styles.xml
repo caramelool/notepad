@@ -13,11 +13,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--<style name="AppTheme.Detail" parent="AppTheme.NoActionBar">-->
-        <!--<item name="colorControlNormal">@android:color/white</item>-->
-        <!--<item name="colorControlActivated">@android:color/white</item>-->
-        <!--<item name="colorControlHighlight">@android:color/white</item>-->
-    <!--</style>-->
+    <style name="DetailTitleEditText">
+        <item name="android:backgroundTint">@android:color/white</item>
+        <item name="android:backgroundTintMode">src_atop</item>
+        <item name="android:colorControlNormal">@android:color/white</item>
+        <item name="android:colorControlActivated">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

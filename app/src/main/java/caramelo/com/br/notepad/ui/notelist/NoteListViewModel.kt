@@ -2,7 +2,7 @@ package caramelo.com.br.notepad.ui.notelist
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.MutableLiveData
-import caramelo.com.br.notepad.component
+import caramelo.com.br.notepad.ext.component
 import caramelo.com.br.notepad.model.Note
 import caramelo.com.br.notepad.repository.NoteRepository
 import javax.inject.Inject

@@ -5,9 +5,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import caramelo.com.br.notepad.R
 import caramelo.com.br.notepad.model.Note
-import caramelo.com.br.notepad.onTextChange
+import caramelo.com.br.notepad.ext.onTextChange
 
 import kotlinx.android.synthetic.main.activity_note_detail.*
 
@@ -58,9 +59,14 @@ class NoteDetailActivity : AppCompatActivity() {
     }
 
     private val loadingObserver = Observer<Boolean> {
-        it?.let {
-            noteContentEditText.isEnabled = !it
-            noteContentEditText.isEnabled = !it
+        if (it == true) {
+            loading.visibility = View.VISIBLE
+            noteContentEditText.isEnabled = false
+            noteContentEditText.isEnabled = false
+        } else {
+            loading.visibility = View.GONE
+            noteContentEditText.isEnabled = true
+            noteContentEditText.isEnabled = true
         }
     }
 

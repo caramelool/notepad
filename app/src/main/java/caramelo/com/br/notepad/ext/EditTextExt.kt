@@ -1,4 +1,4 @@
-package caramelo.com.br.notepad
+package caramelo.com.br.notepad.ext
 
 import android.text.Editable
 import android.text.TextWatcher
