@@ -36,10 +36,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:text="Nenhuma nota encontrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Nenhuma nota encontrada"
+                android:textAppearance="@style/TextAppearance.AppCompat.Tooltip" />
 
         </LinearLayout>
 

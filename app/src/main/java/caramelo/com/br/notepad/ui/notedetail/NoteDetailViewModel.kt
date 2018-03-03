@@ -53,7 +53,7 @@ class NoteDetailViewModel: ViewModel() {
     }
 
     fun setContent(content: String) {
-        note?.value?.title = content
+        note?.value?.content = content
     }
 
     fun save() {
