@@ -9,13 +9,20 @@ import kotlinx.android.synthetic.main.activity_note_list.*
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import caramelo.com.br.notepad.model.Note
 import caramelo.com.br.notepad.ui.notedetail.NoteDetailActivity
+import caramelo.com.br.notepad.ui.util.SwipeToDeleteHandler
 import kotlinx.android.synthetic.main.content_main.*
 
 
 class NoteListActivity : AppCompatActivity() {
+
+    companion object {
+        const val REQUEST_NOTE_DETAIL = 10
+    }
 
     private val model by lazy {
         ViewModelProviders.of(this).get(NoteListViewModel::class.java)
@@ -27,15 +34,41 @@ class NoteListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_note_list)
         setSupportActionBar(toolbar)
 
+        bindView()
+
+        model.isLoading.observe(this, loadingObserver)
+        model.isEmptyView.observe(this, emptyViewObserver)
+        model.isRecyclerView.observe(this, recyclerViewObserver)
+        model.noteList?.observe(this, noteListObserver)
+    }
+
+    private fun bindView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
 
-        fab.setOnClickListener(startNoteDetail)
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        model.loading.observe(this, loadingObserver)
-        model.emptyView.observe(this, emptyViewObserver)
-        model.noteList?.observe(this, noteListObserver)
+        adapter.setOnNoteItemClickListener {
+            startNoteDetail(it)
+        }
+
+        fab.setOnClickListener {
+            startNoteDetail()
+        }
+    }
+
+    /**
+     * Swipe to delete lawsuit
+     */
+
+    private val swipeHandler by lazy {
+        object : SwipeToDeleteHandler(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                model.deleteDelete(viewHolder.adapterPosition)
+            }
+        }
     }
 
     private val loadingObserver = Observer<Boolean> {
@@ -54,14 +87,28 @@ class NoteListActivity : AppCompatActivity() {
         }
     }
 
-    private val noteListObserver = Observer<List<Note>> {
-        it?.let { data ->
-            adapter.data = data
+    private val recyclerViewObserver = Observer<Boolean> {
+        if (it == true) {
+            recyclerView.visibility = View.VISIBLE
+        } else {
+            recyclerView.visibility = View.GONE
         }
     }
 
-    private val startNoteDetail: (View) -> Unit = {
+    private val noteListObserver = Observer<List<Note>> { data ->
+        adapter.data = data
+    }
+
+    private fun startNoteDetail(note: Note? = null) {
         val intent = Intent(this, NoteDetailActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(NoteDetailActivity.EXTRA_NOTE_ID, note?.id)
+        startActivityForResult(intent, REQUEST_NOTE_DETAIL)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_NOTE_DETAIL) {
+            model.loadNotes()
+        }
     }
 }

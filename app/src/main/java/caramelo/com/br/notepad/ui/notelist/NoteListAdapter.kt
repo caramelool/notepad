@@ -13,11 +13,17 @@ import caramelo.com.br.notepad.model.Note
  */
 class NoteListAdapter: RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
 
-    var data: List<Note> = mutableListOf()
+    var data: List<Note>? = mutableListOf()
         set(value) {
-            field = value
+            field = value ?: mutableListOf()
             notifyDataSetChanged()
         }
+
+    private var onNoteItemClickListener: (Note) -> Unit = {}
+
+    fun setOnNoteItemClickListener(l: (Note) -> Unit) {
+        onNoteItemClickListener = l
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent?.context)
@@ -25,12 +31,15 @@ class NoteListAdapter: RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
         return NoteViewHolder(view)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = data!!.size
 
     override fun onBindViewHolder(holder: NoteViewHolder?, position: Int) {
         holder?.let {
-            val note = data[position]
+            val note = data!![position]
             it.bind(note)
+            it.itemView.setOnClickListener {
+                onNoteItemClickListener(note)
+            }
         }
     }
 

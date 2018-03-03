@@ -2,6 +2,7 @@ package caramelo.com.br.notepad.di
 
 import caramelo.com.br.notepad.di.module.RepositoryModule
 import caramelo.com.br.notepad.di.module.RetrofitModule
+import caramelo.com.br.notepad.ui.notedetail.NoteDetailViewModel
 import caramelo.com.br.notepad.ui.notelist.NoteListViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -15,5 +16,6 @@ import javax.inject.Singleton
     RepositoryModule::class
 ])
 interface NoteComponent {
-    fun <T> inject(viewModel: T)
+    fun inject(viewModel: NoteListViewModel)
+    fun inject(viewModel: NoteDetailViewModel)
 }

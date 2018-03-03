@@ -10,15 +10,19 @@ import retrofit2.http.*
 interface NoteApi {
 
     @Headers("Content-Type: application/json")
-    @GET("/nota")
+    @GET("/note")
     fun list(): Call<List<Note>>
 
     @Headers("Content-Type: application/json")
-    @GET("/nota/{id}")
+    @GET("/note/{id}")
     fun get(@Path("id") id: String): Call<Note>
 
     @Headers("Content-Type: application/json")
-    @POST("/nota")
-    fun save(@Body nota: Note): Call<Note>
+    @POST("/note")
+    fun save(@Body note: Note): Call<Note>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("/note/{id}")
+    fun delete(@Path("id") id: String): Call<Note>
 
 }

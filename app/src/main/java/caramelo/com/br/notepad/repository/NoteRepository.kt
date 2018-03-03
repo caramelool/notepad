@@ -13,40 +13,53 @@ class NoteRepository(retrofit: Retrofit) {
 
     private val api by lazy { retrofit.create(NoteApi::class.java) }
 
-    fun list(onListNoteSuccess: (List<Note>?) -> Unit,
-             onListNoteFail: (Throwable?) -> Unit) {
+    fun list(onNoteListSuccess: (List<Note>?) -> Unit,
+             onNoteListFail: (Throwable?) -> Unit) {
         api.list().enqueue(object : Callback<List<Note>> {
             override fun onResponse(call: Call<List<Note>>?, response: Response<List<Note>>?) {
-                onListNoteSuccess(response?.body())
+                onNoteListSuccess(response?.body())
             }
             override fun onFailure(call: Call<List<Note>>?, t: Throwable?) {
-                onListNoteFail(t)
+                onNoteListFail(t)
             }
         })
     }
 
     fun get(id: String,
-            onGetNoteSuccess: (Note?) -> Unit,
-            onGetNoteFail: (Throwable?) -> Unit) {
+            onNoteGetSuccess: (Note?) -> Unit,
+            onNoteGetFail: (Throwable?) -> Unit) {
         api.get(id).enqueue(object : Callback<Note> {
             override fun onResponse(call: Call<Note>?, response: Response<Note>?) {
-                onGetNoteSuccess(response?.body())
+                onNoteGetSuccess(response?.body())
             }
             override fun onFailure(call: Call<Note>?, t: Throwable?) {
-                onGetNoteFail(t)
+                onNoteGetFail(t)
             }
         })
     }
 
     fun save(note: Note,
-             onSaveNoteSuccess: (Note?) -> Unit,
-             onSaveNoteFail: (Throwable?) -> Unit) {
+             onNoteSaveSuccess: (Note?) -> Unit = {},
+             onNoteSaveFail: (Throwable?) -> Unit = {}) {
         api.save(note).enqueue(object : Callback<Note> {
             override fun onResponse(call: Call<Note>?, response: Response<Note>?) {
-                onSaveNoteSuccess(response?.body())
+                onNoteSaveSuccess(response?.body())
             }
             override fun onFailure(call: Call<Note>?, t: Throwable?) {
-                onSaveNoteFail(t)
+                onNoteSaveFail(t)
+            }
+        })
+    }
+
+    fun delete(id: String,
+             onNoteDeleteSuccess: (Note?) -> Unit = {},
+             onNoteDeleteFail: (Throwable?) -> Unit = {}) {
+        api.delete(id).enqueue(object : Callback<Note> {
+            override fun onResponse(call: Call<Note>?, response: Response<Note>?) {
+                onNoteDeleteSuccess(response?.body())
+            }
+            override fun onFailure(call: Call<Note>?, t: Throwable?) {
+                onNoteDeleteFail(t)
             }
         })
     }
