@@ -61,11 +61,11 @@ class NoteDetailActivity : AppCompatActivity() {
     private val loadingObserver = Observer<Boolean> {
         if (it == true) {
             loading.visibility = View.VISIBLE
-            noteContentEditText.isEnabled = false
+            noteTitleEditText.isEnabled = false
             noteContentEditText.isEnabled = false
         } else {
             loading.visibility = View.GONE
-            noteContentEditText.isEnabled = true
+            noteTitleEditText.isEnabled = true
             noteContentEditText.isEnabled = true
         }
     }
