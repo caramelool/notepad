@@ -48,8 +48,23 @@ class NoteDetailViewModel: ViewModel() {
         )
     }
 
+    fun setTitle(title: String) {
+        note?.value?.title = title
+    }
+
+    fun setContent(content: String) {
+        note?.value?.title = content
+    }
+
     fun save() {
         val note = this.note?.value ?: Note()
-        noteRepository.save(note)
+        if (note.title?.isBlank() == true
+                && note.content?.isBlank() == true) {
+            note.id?.let {
+                noteRepository.delete(note.id)
+            }
+        } else {
+            noteRepository.save(note)
+        }
     }
 }

@@ -39,11 +39,11 @@ class NoteDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         noteTitleEditText.onTextChange {
-            model.note?.value?.title = it
+            model.setTitle(it)
         }
 
         noteContentEditText.onTextChange {
-            model.note?.value?.content = it
+            model.setContent(it)
         }
     }
 

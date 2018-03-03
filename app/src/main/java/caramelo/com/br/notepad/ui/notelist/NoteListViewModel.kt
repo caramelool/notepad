@@ -54,7 +54,7 @@ class NoteListViewModel: ViewModel() {
         isRecyclerView.postValue(!isEmpty)
     }
 
-    fun deleteDelete(position: Int) {
+    fun delete(position: Int) {
         val list = noteList?.value?.toMutableList()
         val note = list?.get(position)
         note?.let {

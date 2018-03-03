@@ -57,6 +57,11 @@ class NoteListActivity : AppCompatActivity() {
         fab.setOnClickListener {
             startNoteDetail()
         }
+
+        swipeRefresh.setOnRefreshListener {
+            model.loadNotes()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     /**
@@ -66,7 +71,7 @@ class NoteListActivity : AppCompatActivity() {
     private val swipeHandler by lazy {
         object : SwipeToDeleteHandler(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                model.deleteDelete(viewHolder.adapterPosition)
+                model.delete(viewHolder.adapterPosition)
             }
         }
     }
