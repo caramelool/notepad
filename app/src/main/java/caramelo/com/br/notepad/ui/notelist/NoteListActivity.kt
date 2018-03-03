@@ -76,24 +76,24 @@ class NoteListActivity : AppCompatActivity() {
         }
     }
 
-    private val loadingObserver = Observer<Boolean> {
-        if (it == true) {
+    private val loadingObserver = Observer<Boolean> { visible ->
+        if (visible == true) {
             loading.visibility = View.VISIBLE
         } else {
             loading.visibility = View.GONE
         }
     }
 
-    private val emptyViewObserver = Observer<Boolean> {
-        if (it == true) {
+    private val emptyViewObserver = Observer<Boolean> { visible ->
+        if (visible == true) {
             emptyView.visibility = View.VISIBLE
         } else {
             emptyView.visibility = View.GONE
         }
     }
 
-    private val recyclerViewObserver = Observer<Boolean> {
-        if (it == true) {
+    private val recyclerViewObserver = Observer<Boolean> { visible ->
+        if (visible == true) {
             recyclerView.visibility = View.VISIBLE
         } else {
             recyclerView.visibility = View.GONE

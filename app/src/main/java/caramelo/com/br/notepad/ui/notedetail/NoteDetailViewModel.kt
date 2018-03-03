@@ -32,9 +32,10 @@ class NoteDetailViewModel: ViewModel() {
     private fun start() {
         isLoading.postValue(false)
         note?.value = Note()
-        intent.getStringExtra(NoteDetailActivity.EXTRA_NOTE_ID)?.let {
-            findNoteById(it)
-        }
+        intent.getStringExtra(NoteDetailActivity.EXTRA_NOTE_ID)
+                ?.let { id ->
+                    findNoteById(id)
+                }
     }
 
     private fun findNoteById(id: String) {

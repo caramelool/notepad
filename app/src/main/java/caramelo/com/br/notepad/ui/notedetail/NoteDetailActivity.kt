@@ -58,8 +58,8 @@ class NoteDetailActivity : AppCompatActivity() {
         model.save()
     }
 
-    private val loadingObserver = Observer<Boolean> {
-        if (it == true) {
+    private val loadingObserver = Observer<Boolean> { visible ->
+        if (visible == true) {
             loading.visibility = View.VISIBLE
             noteTitleEditText.isEnabled = false
             noteContentEditText.isEnabled = false
